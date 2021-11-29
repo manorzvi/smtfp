@@ -20,6 +20,8 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
 
+from model_utils import change_model_weights
+
 model_names = sorted(name for name in models.__dict__ if name.islower() and not name.startswith("__") and callable(models.__dict__[name]))
 
 parser = argparse.ArgumentParser(description='PyTorch ImageNet Training')
@@ -28,6 +30,7 @@ parser.add_argument('--data', metavar='DIR',
 parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet18', choices=model_names,
                     help='model architecture: ' + ' | '.join(model_names) + ' (default: resnet18)')
 parser.add_argument('--replace_fc', type=str)
+parser.add_argument('--change_model_weights', choices=['floor_mantissa', 'ceil_mantissa', 'zero_to_closest_mantissa'])
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
@@ -111,6 +114,12 @@ def main_worker(gpu, ngpus_per_node, args):
         logger.warning(f'Replacing model\'s last FCC layer by {args.replace_fc}')
         model.fc = eval(args.replace_fc)
         logger.info('\n' + str(model))
+    
+    if args.change_model_weights:
+        logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights}\'')
+        model = change_model_weights(model, args.change_model_weights)
+        logger.info('\n' + str(model))
+    
 
     if not torch.cuda.is_available():
         logger.warning('Using CPU, this will be slow')
