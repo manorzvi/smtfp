@@ -3,6 +3,7 @@ import os
 import random
 import shutil
 import time
+from datetime import datetime
 import warnings
 from enum import Enum
 from loguru import logger
@@ -59,6 +60,9 @@ parser.add_argument('--seed', default=None, type=int,
                     help='seed for initializing training. ')
 parser.add_argument('--gpu', default=None, type=int,
                     help='GPU id to use.')
+parser.add_argument('--model_dir', type=str)
+parser.add_argument('--log_dir', type=str)
+
 
 best_acc1 = 0
 
@@ -66,14 +70,21 @@ best_acc1 = 0
 def logger_args(args: argparse.Namespace):
     s = '\n'
     for k, v in args.__dict__.items():
-        # print('{:<10}\t{}'.format(k, v))
         s += '{:<10}\t{}\n'.format(k, v)
     logger.info(s)
 
 
 def main():
     args = parser.parse_args()
+    if not args.model_dir:
+        args.model_dir = os.path.join('model', args.arch)
+        os.makedirs(args.model_dir, exist_ok=True)
+    if not args.log_dir:
+        args.log_dir = os.path.join('log', args.arch)
+        os.makedirs(args.log_dir, exist_ok=True)
     logger_args(args)
+    log_timestamp = datetime.today().strftime("%Y-%m-%d-%H:%M:%S")
+    logger.add(os.path.join(args.log_dir, f'{log_timestamp}.log'))
 
     if args.seed is not None:
         random.seed(args.seed)
@@ -88,12 +99,10 @@ def main():
     if args.gpu is not None:
         logger.warning('You have chosen a specific GPU. This will completely disable data parallelism.')
 
-    ngpus_per_node = torch.cuda.device_count()
-
-    main_worker(args.gpu, ngpus_per_node, args)
+    main_worker(args.gpu, args)
 
 
-def main_worker(gpu, ngpus_per_node, args):
+def main_worker(gpu, args):
     global best_acc1
     args.gpu = gpu
 
@@ -108,10 +117,8 @@ def main_worker(gpu, ngpus_per_node, args):
         logger.info("Creating model '{}'".format(args.arch))
         model = models.__dict__[args.arch]()
 
-    logger.info('\n' + str(model))
-
     if args.replace_fc:
-        logger.warning(f'Replacing model\'s last FCC layer by {args.replace_fc}')
+        logger.warning(f'Replacing model\'s last FC layer by {args.replace_fc}')
         model.fc = eval(args.replace_fc)
         logger.info('\n' + str(model))
     
@@ -120,25 +127,24 @@ def main_worker(gpu, ngpus_per_node, args):
         model = change_model_weights(model, args.change_model_weights)
         logger.info('\n' + str(model))
     
-
     if not torch.cuda.is_available():
         logger.warning('Using CPU, this will be slow')
     elif args.gpu is not None:
         torch.cuda.set_device(args.gpu)
         model = model.cuda(args.gpu)
     else:
-        if args.arch.startswith('alexnet') or args.arch.startswith('vgg'):
-            model.features = torch.nn.DataParallel(model.features)
-            model.cuda()
-        else:
-            model = torch.nn.DataParallel(model).cuda()
+        logger.error(f'Either cuda.is_available() need to be False (CPU training) or you must set a gpu id (using args, you set: {args.gpu})')
+        exit()
 
     # define loss function (criterion) and optimizer
     criterion = nn.CrossEntropyLoss().cuda(args.gpu)
 
-    optimizer = torch.optim.SGD(model.parameters(), args.lr,
-                                momentum=args.momentum,
-                                weight_decay=args.weight_decay)
+    optimizer = torch.optim.SGD(
+        model.parameters(),
+        args.lr,
+        momentum=args.momentum,
+        weight_decay=args.weight_decay
+    )
 
     # optionally resume from a checkpoint
     if args.resume:
@@ -178,7 +184,6 @@ def main_worker(gpu, ngpus_per_node, args):
             transforms.ToTensor(),
             normalize,
         ]))
-
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True, sampler=None)
 
     val_dataset = datasets.ImageFolder(
@@ -189,10 +194,10 @@ def main_worker(gpu, ngpus_per_node, args):
             transforms.ToTensor(),
             normalize,
         ]))
-
     val_loader = torch.utils.data.DataLoader(val_dataset,  batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True)
 
     if args.evaluate:
+        logger.info('args.evaluate=True: Doing evaluation once, and exit')
         validate(val_loader, model, criterion, args)
         return
 
@@ -215,7 +220,7 @@ def main_worker(gpu, ngpus_per_node, args):
             'state_dict': model.state_dict(),
             'best_acc1': best_acc1,
             'optimizer' : optimizer.state_dict(),
-        }, is_best)
+        }, is_best, filename=os.path.join(args.model_dir, 'checkpoint.pth.tar'))
 
 
 def train(train_loader, model, criterion, optimizer, epoch, args):
@@ -311,7 +316,8 @@ def validate(val_loader, model, criterion, args):
 def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
     torch.save(state, filename)
     if is_best:
-        shutil.copyfile(filename, 'model_best.pth.tar')
+        logger.info(f'Model @ epoch {state["epoch"]} is the best with acc1: {state["best_acc1"]}')
+        shutil.copyfile(filename, os.path.join(os.path.dirname(filename), 'model_best.pth.tar'))
 
 class Summary(Enum):
     NONE = 0
@@ -368,12 +374,12 @@ class ProgressMeter(object):
     def display(self, batch):
         entries = [self.prefix + self.batch_fmtstr.format(batch)]
         entries += [str(meter) for meter in self.meters]
-        print('\t'.join(entries))
+        logger.info('\t'.join(entries))
         
     def display_summary(self):
         entries = [" *"]
         entries += [meter.summary() for meter in self.meters]
-        print(' '.join(entries))
+        logger.info(' '.join(entries))
 
     def _get_batch_fmtstr(self, num_batches):
         num_digits = len(str(num_batches // 1))
