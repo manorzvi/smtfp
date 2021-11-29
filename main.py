@@ -27,6 +27,7 @@ parser.add_argument('--data', metavar='DIR',
                     help='path to dataset')
 parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet18', choices=model_names,
                     help='model architecture: ' + ' | '.join(model_names) + ' (default: resnet18)')
+parser.add_argument('--replace_fc', type=str)
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
@@ -104,6 +105,13 @@ def main_worker(gpu, ngpus_per_node, args):
         logger.info("Creating model '{}'".format(args.arch))
         model = models.__dict__[args.arch]()
 
+    logger.info('\n' + str(model))
+
+    if args.replace_fc:
+        logger.warning(f'Replacing model\'s last FCC layer by {args.replace_fc}')
+        model.fc = eval(args.replace_fc)
+        logger.info('\n' + str(model))
+
     if not torch.cuda.is_available():
         logger.warning('Using CPU, this will be slow')
     elif args.gpu is not None:
@@ -149,6 +157,7 @@ def main_worker(gpu, ngpus_per_node, args):
     # Data loading code
     traindir = os.path.join(args.data, 'train')
     valdir = os.path.join(args.data, 'val')
+    logger.info(f'Train Dir: {traindir} | Val Dir: {valdir}')
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
 
@@ -170,7 +179,7 @@ def main_worker(gpu, ngpus_per_node, args):
             transforms.CenterCrop(224),
             transforms.ToTensor(),
             normalize,
-        ])),
+        ]))
 
     val_loader = torch.utils.data.DataLoader(val_dataset,  batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True)
 
