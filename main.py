@@ -78,9 +78,13 @@ def main():
     args = parser.parse_args()
     if not args.model_dir:
         args.model_dir = os.path.join('model', args.arch)
+        if args.change_model_weights:
+            args.model_dir = os.path.join(args.model_dir, args.change_model_weights)
         os.makedirs(args.model_dir, exist_ok=True)
     if not args.log_dir:
         args.log_dir = os.path.join('log', args.arch)
+        if args.change_model_weights:
+            args.log_dir = os.path.join(args.log_dir, args.change_model_weights)
         os.makedirs(args.log_dir, exist_ok=True)
     logger_args(args)
     log_timestamp = datetime.today().strftime("%Y-%m-%d-%H:%M:%S")
