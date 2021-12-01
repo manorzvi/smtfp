@@ -35,13 +35,13 @@ class PackedFP32:
         npfp32 = np.float32(dec_sign * 2 ** (dec_exponent - 127) * dec_mantissa)
         return npfp32
     
-    def floor_mantissa(self, x: Union[float, float32, np.float32]) -> np.float32:
+    def floor_mantissa(self, x: Union[float, np.float32]) -> np.float32:
         sign, exponent, _ = self.from_fp32(x)
         mantissa = '00000000000000000000000'
         x = self.to_fp32(sign, exponent, mantissa)
         return x
     
-    def ceil_mantissa(self, x: Union[float, float32, np.float32]) -> np.float32:
+    def ceil_mantissa(self, x: Union[float, np.float32]) -> np.float32:
         sign, exponent, _ = self.from_fp32(x)
         mantissa = '00000000000000000000000'
         exponent = int(exponent, 2)
@@ -50,7 +50,7 @@ class PackedFP32:
         x = self.to_fp32(sign, exponent, mantissa)
         return x
     
-    def zero_mantissa_to_closest_exponent(self, x: Union[float, float32, np.float32]) -> np.float32:
+    def zero_mantissa_to_closest_exponent(self, x: Union[float, np.float32]) -> np.float32:
         _, _, mantissa = self.from_fp32(x)
         if mantissa[0] == '0':
             x = self.floor_mantissa(x)
