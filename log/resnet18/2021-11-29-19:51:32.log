@@ -1,0 +1,108 @@
+2021-11-29 19:51:32.034 | INFO     | __main__:main:121 - Log into log/resnet18/2021-11-29-19:51:32.log
+2021-11-29 19:51:32.034 | WARNING  | __main__:main:127 - You have chosen to seed training. This will turn on the CUDNN deterministic setting, which can slow down your training considerably! You may see unexpected behavior when restarting from checkpoints.
+2021-11-29 19:51:32.034 | INFO     | __main__:main_worker:148 - Using pre-trained model 'resnet18'
+2021-11-29 19:51:32.181 | WARNING  | __main__:main_worker:155 - Replacing model's last FC layer by torch.nn.Linear(512, 10)
+2021-11-29 19:51:32.182 | INFO     | __main__:main_worker:157 - 
+ResNet(
+  (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+  (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu): ReLU(inplace=True)
+  (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+  (layer1): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer2): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer3): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (layer4): Sequential(
+    (0): BasicBlock(
+      (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (downsample): Sequential(
+        (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (1): BasicBlock(
+      (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+  (fc): Linear(in_features=512, out_features=10, bias=True)
+)
+2021-11-29 19:51:32.183 | WARNING  | __main__:main_worker:164 - Using CPU, this will be slow
+2021-11-29 19:51:32.185 | INFO     | __main__:main_worker:185 - Loading checkpoint 'model/resnet18/model_best.pth.tar'
+2021-11-29 19:51:32.248 | INFO     | __main__:main_worker:199 - Loaded checkpoint 'model/resnet18/model_best.pth.tar' (epoch 95)
+2021-11-29 19:51:32.248 | INFO     | __main__:main_worker:213 - Train Dir: data/imagenette/train | Val Dir: data/imagenette/val
+2021-11-29 19:51:32.281 | INFO     | __main__:main_worker:238 - args.evaluate=True: Doing evaluation once, and exit
+2021-11-29 19:51:33.221 | INFO     | __main__:display:415 - Test: [  0/123]	Time  0.939 ( 0.939)	Loss 3.5504e-01 (3.5504e-01)	Acc@1  90.62 ( 90.62)	Acc@5  96.88 ( 96.88)
+2021-11-29 19:51:38.653 | INFO     | __main__:display:415 - Test: [ 10/123]	Time  0.503 ( 0.579)	Loss 3.9726e-01 (2.2620e-01)	Acc@1  87.50 ( 93.18)	Acc@5  96.88 ( 98.30)
+2021-11-29 19:51:45.581 | INFO     | __main__:display:415 - Test: [ 20/123]	Time  0.785 ( 0.633)	Loss 2.4080e-01 (2.1688e-01)	Acc@1  93.75 ( 92.86)	Acc@5 100.00 ( 98.96)
+2021-11-29 19:51:53.707 | INFO     | __main__:display:415 - Test: [ 30/123]	Time  0.815 ( 0.691)	Loss 5.6439e-01 (2.8618e-01)	Acc@1  84.38 ( 91.13)	Acc@5  96.88 ( 98.79)
+2021-11-29 19:52:01.784 | INFO     | __main__:display:415 - Test: [ 40/123]	Time  0.835 ( 0.720)	Loss 5.9728e-01 (3.3382e-01)	Acc@1  78.12 ( 89.48)	Acc@5 100.00 ( 98.86)
+2021-11-29 19:52:09.967 | INFO     | __main__:display:415 - Test: [ 50/123]	Time  0.846 ( 0.739)	Loss 4.5895e-01 (3.7944e-01)	Acc@1  87.50 ( 87.99)	Acc@5  96.88 ( 99.02)
+2021-11-29 19:52:17.927 | INFO     | __main__:display:415 - Test: [ 60/123]	Time  0.785 ( 0.748)	Loss 4.7604e-01 (3.6058e-01)	Acc@1  84.38 ( 88.58)	Acc@5  96.88 ( 99.08)
+2021-11-29 19:52:25.980 | INFO     | __main__:display:415 - Test: [ 70/123]	Time  0.761 ( 0.756)	Loss 3.6799e-01 (3.7606e-01)	Acc@1  90.62 ( 88.07)	Acc@5 100.00 ( 99.08)
+2021-11-29 19:52:33.800 | INFO     | __main__:display:415 - Test: [ 80/123]	Time  0.769 ( 0.759)	Loss 6.1347e-01 (3.7516e-01)	Acc@1  81.25 ( 88.19)	Acc@5 100.00 ( 99.11)
+2021-11-29 19:52:41.844 | INFO     | __main__:display:415 - Test: [ 90/123]	Time  0.817 ( 0.764)	Loss 3.9547e-01 (3.8173e-01)	Acc@1  84.38 ( 87.98)	Acc@5 100.00 ( 99.11)
+2021-11-29 19:52:49.641 | INFO     | __main__:display:415 - Test: [100/123]	Time  0.722 ( 0.766)	Loss 3.5937e-01 (4.0104e-01)	Acc@1  87.50 ( 87.44)	Acc@5  96.88 ( 99.04)
+2021-11-29 19:52:57.639 | INFO     | __main__:display:415 - Test: [110/123]	Time  0.825 ( 0.769)	Loss 3.1475e-01 (4.0185e-01)	Acc@1  90.62 ( 87.53)	Acc@5 100.00 ( 98.99)
+2021-11-29 19:53:05.274 | INFO     | __main__:display:415 - Test: [120/123]	Time  0.714 ( 0.769)	Loss 3.8592e-01 (3.9758e-01)	Acc@1  90.62 ( 87.76)	Acc@5  93.75 ( 98.94)
+2021-11-29 19:53:06.549 | INFO     | __main__:display_summary:420 -  *   Acc@1 87.643 Acc@5 98.904

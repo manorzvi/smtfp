@@ -4,24 +4,23 @@ import random
 import shutil
 import time
 from datetime import datetime
-import warnings
 from enum import Enum
 from loguru import logger
-
+import struct
+import copy
 import torch
 import torch.nn as nn
 import torch.nn.parallel
 import torch.backends.cudnn as cudnn
-import torch.distributed as dist
 import torch.optim
-import torch.multiprocessing as mp
 import torch.utils.data
-import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
 
-#from model_utils import change_model_weights
+from utils import PackedFP32
+
+torch.set_printoptions(linewidth=200, sci_mode=False)
 
 model_names = sorted(name for name in models.__dict__ if name.islower() and not name.startswith("__") and callable(models.__dict__[name]))
 
@@ -31,7 +30,9 @@ parser.add_argument('--data', metavar='DIR',
 parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet18', choices=model_names,
                     help='model architecture: ' + ' | '.join(model_names) + ' (default: resnet18)')
 parser.add_argument('--replace_fc', type=str)
-parser.add_argument('--change_model_weights', choices=['floor_mantissa', 'ceil_mantissa', 'zero_to_closest_mantissa'])
+parser.add_argument('--change_model_weights',
+                    choices=['floor_mantissa', 'ceil_mantissa', 'zero_mantissa_to_closest_exponent'])
+parser.add_argument('--model_weights_group_size', type=int, default=2)                    
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
 parser.add_argument('--epochs', default=90, type=int, metavar='N',
@@ -74,21 +75,81 @@ def logger_args(args: argparse.Namespace):
     logger.info(s)
 
 
+def convert_tensor(X: torch.FloatTensor, args: argparse.Namespace) -> torch.FloatTensor:
+    E = X.clone()
+    E.apply_(lambda x: int(''.join([bin(c)[2:].rjust(8, '0') for c in struct.pack('!f', x)])[1:9], 2))
+    # E = E.view(-1, args.model_weights_group_size)
+    # Eargmax = E.argmax(dim=1) 
+    
+    # Xmask = torch.zeros_like(E, dtype=bool)
+    # Xmask[torch.range(0, Xmask.shape[0]-1, dtype=int), Eargmax] = True
+    # Xmask = Xmask.view_as(X)
+
+    # Xmod = X.clone()
+    # Xmod.apply_(lambda x: eval(f'PackedFP32().{args.change_model_weights}(x)'))
+
+    # X = torch.where(Xmask, X, Xmod)
+
+    E = E.flatten()[:int(E.numel()/args.model_weights_group_size)*args.model_weights_group_size].view(-1, args.model_weights_group_size)
+    Eargmax = E.argmax(dim=1)
+
+    Xmask = torch.zeros_like(E, dtype=bool)
+    Xmask[torch.range(0, Xmask.shape[0]-1, dtype=int), Eargmax] = True
+    Xmask = Xmask.flatten()
+    Xmask = torch.cat((Xmask, torch.ones((X.numel()-Xmask.shape[0]), dtype=bool)))
+    Xmask = Xmask.view_as(X)
+
+    Xmod = X.clone()
+    Xmod.apply_(lambda x: eval(f'PackedFP32().{args.change_model_weights}(x)'))
+
+    X = torch.where(Xmask, X, Xmod)
+
+    return X
+
+def convert_tensor_all_weights(X: torch.FloatTensor, args: argparse.Namespace) -> torch.FloatTensor:
+    X.apply_(lambda x: eval(f'PackedFP32().{args.change_model_weights}(x)'))
+
+    return X
+
+def convert_model(model, args: argparse.Namespace):
+    with torch.no_grad():
+        for name, W in model.named_parameters():
+            if 'bn' in name or 'downsample' in name:
+                logger.info(f'Skipping {name} ...')
+                continue
+            # if W.numel() % args.model_weights_group_size != 0:
+            #     logger.info(f'Skipping {name} (W.numel()(={W.numel()}) % {args.model_weights_group_size} != 0) ...')
+            #     continue
+            # if W.numel() < args.model_weights_group_size:
+            #     logger.info(f'Skipping {name} (W.numel()(={W.numel()}) < {args.model_weights_group_size}) ...')
+            #     continue
+            if W.numel() < args.model_weights_group_size:
+                logger.info(f'Converting {name} with group size: {W.numel()}. (W.numel()(={W.numel()}) < {args.model_weights_group_size}) ...')
+                newargs = copy.deepcopy(args)
+                newargs.model_weights_group_size = W.numel()
+                W.copy_(convert_tensor(W, newargs))
+            else:
+                logger.info(f'Converting {name} ...')
+                W.copy_(convert_tensor(W, args))
+    return model
+
+
 def main():
     args = parser.parse_args()
     if not args.model_dir:
         args.model_dir = os.path.join('model', args.arch)
         if args.change_model_weights:
-            args.model_dir = os.path.join(args.model_dir, args.change_model_weights)
+            args.model_dir = os.path.join(args.model_dir, args.change_model_weights, f'group_size:{args.model_weights_group_size}')
         os.makedirs(args.model_dir, exist_ok=True)
     if not args.log_dir:
         args.log_dir = os.path.join('log', args.arch)
         if args.change_model_weights:
-            args.log_dir = os.path.join(args.log_dir, args.change_model_weights)
+            args.log_dir = os.path.join(args.log_dir, args.change_model_weights, f'group_size:{args.model_weights_group_size}')
         os.makedirs(args.log_dir, exist_ok=True)
     logger_args(args)
-    log_timestamp = datetime.today().strftime("%Y-%m-%d-%H:%M:%S")
-    logger.add(os.path.join(args.log_dir, f'{log_timestamp}.log'))
+    log_file = os.path.join(args.log_dir, f'{datetime.today().strftime("%Y-%m-%d-%H:%M:%S")}.log')
+    logger.add(log_file)
+    logger.info(f'Log into {log_file}')
 
     if args.seed is not None:
         random.seed(args.seed)
@@ -126,11 +187,10 @@ def main_worker(gpu, args):
         model.fc = eval(args.replace_fc)
         logger.info('\n' + str(model))
     
-    if args.change_model_weights:
-        logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights}\'')
-        model = change_model_weights(model, args.change_model_weights)
-        logger.info('\n' + str(model))
-    
+    # if args.change_model_weights:
+    #     logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights}\'')
+    #     model = change_model_weights(model, args)
+        
     if not torch.cuda.is_available():
         logger.warning('Using CPU, this will be slow')
     elif args.gpu is not None:
@@ -154,8 +214,8 @@ def main_worker(gpu, args):
     if args.resume:
         if os.path.isfile(args.resume):
             logger.info("Loading checkpoint '{}'".format(args.resume))
-            if args.gpu is None:
-                checkpoint = torch.load(args.resume)
+            if not torch.cuda.is_available():
+                checkpoint = torch.load(args.resume, map_location=torch.device('cpu'))
             else:
                 # Map model to be loaded to specified single gpu.
                 loc = 'cuda:{}'.format(args.gpu)
@@ -170,6 +230,11 @@ def main_worker(gpu, args):
             logger.info("Loaded checkpoint '{}' (epoch {})".format(args.resume, checkpoint['epoch']))
         else:
             logger.warning("No checkpoint found at '{}'".format(args.resume))
+    
+    if args.change_model_weights:
+        logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights}\' with group size: {args.model_weights_group_size}')
+        model = convert_model(model, args)
+
 
     cudnn.benchmark = True
 
