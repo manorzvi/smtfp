@@ -250,8 +250,9 @@ def main_worker(gpu, args, writer=None):
         model.cpu()
         model = convert_model(model, args)
         model = model.cuda(args.gpu)
-
-        
+    
+    if args.change_model_weights_during_training:
+        args.change_model_weights = args.change_model_weights_during_training
 
     cudnn.benchmark = True
 
@@ -362,7 +363,7 @@ def train(train_loader, model, criterion, optimizer, epoch, args, writer):
         end = time.time()
 
         if args.change_model_weights_during_training:
-            logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights_during_training}\' with group size: {args.model_weights_group_size}')
+            logger.warning(f'Changing model\'s weights during training according to \'{args.change_model_weights_during_training}\' with group size: {args.model_weights_group_size}')
             model.cpu()
             model = convert_model(model, args)
             model = model.cuda(args.gpu)
