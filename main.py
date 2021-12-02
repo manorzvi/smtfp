@@ -146,10 +146,10 @@ def main():
         if args.change_model_weights:
             args.log_dir = os.path.join(args.log_dir, args.change_model_weights, f'group_size:{args.model_weights_group_size}')
         os.makedirs(args.log_dir, exist_ok=True)
-    logger_args(args)
     log_file = os.path.join(args.log_dir, f'{datetime.today().strftime("%Y-%m-%d-%H:%M:%S")}.log')
     logger.add(log_file)
     logger.info(f'Log into {log_file}')
+    logger_args(args)
 
     if args.seed is not None:
         random.seed(args.seed)
