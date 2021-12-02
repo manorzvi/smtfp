@@ -120,7 +120,8 @@ def convert_model(model, args: argparse.Namespace, verbose: int):
     with torch.no_grad():
         for name, W in model.named_parameters():
             if 'bn' in name or 'downsample' in name:
-                logger.info(f'Skipping {name} ...')
+                if verbose > 0:
+                    logger.info(f'Skipping {name} ...')
                 continue
             # if W.numel() % args.model_weights_group_size != 0:
             #     logger.info(f'Skipping {name} (W.numel()(={W.numel()}) % {args.model_weights_group_size} != 0) ...')
