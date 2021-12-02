@@ -116,7 +116,7 @@ def convert_tensor_all_weights(X: torch.FloatTensor, args: argparse.Namespace) -
 
     return X
 
-def convert_model(model, args: argparse.Namespace):
+def convert_model(model, args: argparse.Namespace, verbose: int):
     with torch.no_grad():
         for name, W in model.named_parameters():
             if 'bn' in name or 'downsample' in name:
@@ -129,12 +129,14 @@ def convert_model(model, args: argparse.Namespace):
             #     logger.info(f'Skipping {name} (W.numel()(={W.numel()}) < {args.model_weights_group_size}) ...')
             #     continue
             if W.numel() < args.model_weights_group_size:
-                logger.info(f'Converting {name} with group size: {W.numel()}. (W.numel()(={W.numel()}) < {args.model_weights_group_size}) ...')
+                if verbose > 0:
+                    logger.info(f'Converting {name} with group size: {W.numel()}. (W.numel()(={W.numel()}) < {args.model_weights_group_size}) ...')
                 newargs = copy.deepcopy(args)
                 newargs.model_weights_group_size = W.numel()
                 W.copy_(convert_tensor(W, newargs))
             else:
-                logger.info(f'Converting {name} ...')
+                if verbose > 0:
+                    logger.info(f'Converting {name} ...')
                 W.copy_(convert_tensor(W, args))
     return model
 
@@ -248,7 +250,7 @@ def main_worker(gpu, args, writer=None):
     if args.change_model_weights:
         logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights}\' with group size: {args.model_weights_group_size}')
         model.cpu()
-        model = convert_model(model, args)
+        model = convert_model(model, args, verbose=1)
         model = model.cuda(args.gpu)
     
     if args.change_model_weights_during_training:
@@ -365,7 +367,7 @@ def train(train_loader, model, criterion, optimizer, epoch, args, writer):
         if args.change_model_weights_during_training:
             logger.warning(f'Changing model\'s weights during training according to \'{args.change_model_weights_during_training}\' with group size: {args.model_weights_group_size}')
             model.cpu()
-            model = convert_model(model, args)
+            model = convert_model(model, args, verbose=0)
             model = model.cuda(args.gpu)
         
         if i % args.print_freq == 0:
