@@ -288,7 +288,7 @@ def main_worker(gpu, args, writer=None):
 
     if args.evaluate:
         logger.info('args.evaluate=True: Doing evaluation once, and exit')
-        validate(val_loader, model, criterion, args, writer)
+        validate(val_loader, model, criterion, args)
         return
 
     for epoch in range(args.start_epoch, args.epochs):
@@ -375,7 +375,7 @@ def train(train_loader, model, criterion, optimizer, epoch, args, writer):
             progress.display(i)
 
 
-def validate(val_loader, model, criterion, args, writer):
+def validate(val_loader, model, criterion, args):
     batch_time = AverageMeter('Time', ':6.3f', Summary.NONE)
     losses = AverageMeter('Loss', ':.4e', Summary.NONE)
     top1 = AverageMeter('Acc@1', ':6.2f', Summary.AVERAGE)
