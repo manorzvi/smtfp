@@ -233,8 +233,11 @@ def main_worker(gpu, args):
     
     if args.change_model_weights:
         logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights}\' with group size: {args.model_weights_group_size}')
+        model.cpu()
         model = convert_model(model, args)
+        model = model.cuda(args.gpu)
 
+        
 
     cudnn.benchmark = True
 
