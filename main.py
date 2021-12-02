@@ -17,6 +17,8 @@ import torch.utils.data
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 import torchvision.models as models
+from torch.utils.tensorboard import SummaryWriter
+
 
 from utils import PackedFP32
 
@@ -31,6 +33,8 @@ parser.add_argument('-a', '--arch', metavar='ARCH', default='resnet18', choices=
                     help='model architecture: ' + ' | '.join(model_names) + ' (default: resnet18)')
 parser.add_argument('--replace_fc', type=str)
 parser.add_argument('--change_model_weights',
+                    choices=['floor_mantissa', 'ceil_mantissa', 'zero_mantissa_to_closest_exponent'])
+parser.add_argument('--change_model_weights_during_training',
                     choices=['floor_mantissa', 'ceil_mantissa', 'zero_mantissa_to_closest_exponent'])
 parser.add_argument('--model_weights_group_size', type=int, default=2)                    
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
@@ -63,6 +67,7 @@ parser.add_argument('--gpu', default=None, type=int,
                     help='GPU id to use.')
 parser.add_argument('--model_dir', type=str)
 parser.add_argument('--log_dir', type=str)
+parser.add_argument('--tensorboard', action='store_true')
 
 
 best_acc1 = 0
@@ -151,6 +156,11 @@ def main():
     logger.info(f'Log into {log_file}')
     logger_args(args)
 
+    writer = None
+    if args.tensorboard:
+        writer = SummaryWriter(log_dir=args.log_dir)
+
+
     if args.seed is not None:
         random.seed(args.seed)
         torch.manual_seed(args.seed)
@@ -164,10 +174,14 @@ def main():
     if args.gpu is not None:
         logger.warning('You have chosen a specific GPU. This will completely disable data parallelism.')
 
-    main_worker(args.gpu, args)
+    main_worker(args.gpu, args, writer)
+
+    if args.tensorboard:
+        writer.flush()
+        writer.close()
 
 
-def main_worker(gpu, args):
+def main_worker(gpu, args, writer=None):
     global best_acc1
     args.gpu = gpu
 
@@ -270,17 +284,21 @@ def main_worker(gpu, args):
 
     if args.evaluate:
         logger.info('args.evaluate=True: Doing evaluation once, and exit')
-        validate(val_loader, model, criterion, args)
+        validate(val_loader, model, criterion, args, writer)
         return
 
     for epoch in range(args.start_epoch, args.epochs):
         adjust_learning_rate(optimizer, epoch, args)
 
         # train for one epoch
-        train(train_loader, model, criterion, optimizer, epoch, args)
+        train(train_loader, model, criterion, optimizer, epoch, args, writer)
 
         # evaluate on validation set
-        acc1 = validate(val_loader, model, criterion, args)
+        acc1, acc5 = validate(val_loader, model, criterion, args)
+
+        if args.tensorboard:
+            writer.add_scalar("acc1/val", acc1, epoch)
+            writer.add_scalar("acc5/val", acc5, epoch)
 
         # remember best acc@1 and save checkpoint
         is_best = acc1 > best_acc1
@@ -295,7 +313,7 @@ def main_worker(gpu, args):
         }, is_best, filename=os.path.join(args.model_dir, 'checkpoint.pth.tar'))
 
 
-def train(train_loader, model, criterion, optimizer, epoch, args):
+def train(train_loader, model, criterion, optimizer, epoch, args, writer):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -329,6 +347,11 @@ def train(train_loader, model, criterion, optimizer, epoch, args):
         top1.update(acc1[0], images.size(0))
         top5.update(acc5[0], images.size(0))
 
+        if args.tensorboard:
+            writer.add_scalar("loss/train", loss, epoch*i)
+            writer.add_scalar("acc1/train", acc1, epoch*i)
+            writer.add_scalar("acc5/train", acc5, epoch*i)
+
         # compute gradient and do SGD step
         optimizer.zero_grad()
         loss.backward()
@@ -338,11 +361,17 @@ def train(train_loader, model, criterion, optimizer, epoch, args):
         batch_time.update(time.time() - end)
         end = time.time()
 
+        if args.change_model_weights_during_training:
+            logger.warning(f'Changing model\'s weights according to \'{args.change_model_weights_during_training}\' with group size: {args.model_weights_group_size}')
+            model.cpu()
+            model = convert_model(model, args)
+            model = model.cuda(args.gpu)
+        
         if i % args.print_freq == 0:
             progress.display(i)
 
 
-def validate(val_loader, model, criterion, args):
+def validate(val_loader, model, criterion, args, writer):
     batch_time = AverageMeter('Time', ':6.3f', Summary.NONE)
     losses = AverageMeter('Loss', ':.4e', Summary.NONE)
     top1 = AverageMeter('Acc@1', ':6.2f', Summary.AVERAGE)
@@ -382,7 +411,7 @@ def validate(val_loader, model, criterion, args):
 
         progress.display_summary()
 
-    return top1.avg
+    return top1.avg, top5.avg
 
 
 def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
