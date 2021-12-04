@@ -352,9 +352,9 @@ def train(train_loader, model, criterion, optimizer, epoch, args, writer):
         top5.update(acc5[0], images.size(0))
 
         if args.tensorboard:
-            writer.add_scalar("loss/train", loss, epoch*i)
-            writer.add_scalar("acc1/train", acc1, epoch*i)
-            writer.add_scalar("acc5/train", acc5, epoch*i)
+            writer.add_scalar("loss/train", loss, (epoch*len(train_loader)) + i)
+            writer.add_scalar("acc1/train", acc1, (epoch*len(train_loader)) + i)
+            writer.add_scalar("acc5/train", acc5, (epoch*len(train_loader)) + i)
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
