@@ -1780,3 +1780,172 @@ ResNet(
 2021-12-08 07:57:45.083 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
 2021-12-08 08:01:32.430 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
 2021-12-08 08:05:18.571 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:09:04.266 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:12:48.260 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:16:35.068 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:20:23.557 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:24:31.583 | INFO     | __main__:display:482 - Epoch: [37][20/37]	Time 228.489 (214.703)	Data 228.336 (214.551)	Loss 5.6573e-01 (5.0730e-01)	Acc@1  82.81 ( 84.17)	Acc@5  98.44 ( 98.59)
+2021-12-08 08:24:31.737 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:28:42.791 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:32:54.290 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:37:04.950 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:41:16.942 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:45:28.233 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:49:41.245 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:53:52.713 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 08:58:04.909 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:02:16.956 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:06:28.615 | INFO     | __main__:display:482 - Epoch: [37][30/37]	Time 252.046 (226.521)	Data 251.891 (226.369)	Loss 4.9034e-01 (5.0564e-01)	Acc@1  83.59 ( 83.83)	Acc@5  99.22 ( 98.64)
+2021-12-08 09:06:28.770 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:10:39.144 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:14:50.992 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:19:00.777 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:23:13.857 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:27:25.925 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:31:39.466 | INFO     | __main__:display:482 - Test: [ 0/16]	Time  2.225 ( 2.225)	Loss 2.3980e-01 (2.3980e-01)	Acc@1  91.02 ( 91.02)	Acc@5  98.44 ( 98.44)
+2021-12-08 09:31:44.341 | INFO     | __main__:display:482 - Test: [10/16]	Time  0.842 ( 0.645)	Loss 4.5023e-01 (4.1893e-01)	Acc@1  85.55 ( 86.29)	Acc@5  98.83 ( 99.04)
+2021-12-08 09:31:46.037 | INFO     | __main__:display_summary:487 -  *   Acc@1 84.943 Acc@5 98.522
+2021-12-08 09:31:46.248 | INFO     | __main__:save_checkpoint:424 - Model @ epoch 38 is the best with acc1: 84.94267272949219
+2021-12-08 09:31:48.594 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:36:01.699 | INFO     | __main__:display:482 - Epoch: [38][ 0/37]	Time  2.015 ( 2.015)	Data  1.873 ( 1.873)	Loss 5.7228e-01 (5.7228e-01)	Acc@1  82.81 ( 82.81)	Acc@5  97.66 ( 97.66)
+2021-12-08 09:36:01.853 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:40:14.317 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:44:26.061 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:48:38.766 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:52:48.568 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 09:57:00.389 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:01:11.523 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:05:23.522 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:09:36.149 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:13:48.912 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:18:02.027 | INFO     | __main__:display:482 - Epoch: [38][10/37]	Time 252.764 (229.303)	Data 252.610 (229.150)	Loss 5.5475e-01 (4.9850e-01)	Acc@1  83.20 ( 83.88)	Acc@5  97.66 ( 98.58)
+2021-12-08 10:18:02.184 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:22:04.580 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:25:52.121 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:29:38.573 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:33:24.113 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:37:10.864 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:41:04.384 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:44:54.855 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:48:42.814 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:52:30.061 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 10:56:17.682 | INFO     | __main__:display:482 - Epoch: [38][20/37]	Time 227.248 (230.642)	Data 227.095 (230.489)	Loss 4.5998e-01 (5.0090e-01)	Acc@1  84.77 ( 84.00)	Acc@5  99.61 ( 98.66)
+2021-12-08 10:56:17.835 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:00:06.853 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:04:00.414 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:07:51.957 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:11:39.058 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:15:26.845 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:19:15.997 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:23:04.317 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:26:52.643 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:30:41.490 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:34:29.776 | INFO     | __main__:display:482 - Epoch: [38][30/37]	Time 228.847 (230.158)	Data 228.695 (230.006)	Loss 5.0837e-01 (5.0761e-01)	Acc@1  83.20 ( 83.63)	Acc@5  98.44 ( 98.56)
+2021-12-08 11:34:29.928 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:38:18.838 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:42:08.025 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:45:58.248 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:49:47.532 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:53:38.034 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 11:57:29.798 | INFO     | __main__:display:482 - Test: [ 0/16]	Time  1.696 ( 1.696)	Loss 2.9355e-01 (2.9355e-01)	Acc@1  90.23 ( 90.23)	Acc@5  98.44 ( 98.44)
+2021-12-08 11:57:33.055 | INFO     | __main__:display:482 - Test: [10/16]	Time  0.175 ( 0.450)	Loss 5.1228e-01 (4.1468e-01)	Acc@1  80.47 ( 85.83)	Acc@5  98.83 ( 98.93)
+2021-12-08 11:57:34.469 | INFO     | __main__:display_summary:487 -  *   Acc@1 84.204 Acc@5 98.599
+2021-12-08 11:57:36.188 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:01:21.430 | INFO     | __main__:display:482 - Epoch: [39][ 0/37]	Time  1.540 ( 1.540)	Data  1.397 ( 1.397)	Loss 4.5477e-01 (4.5477e-01)	Acc@1  82.81 ( 82.81)	Acc@5  98.05 ( 98.05)
+2021-12-08 12:01:21.581 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:05:07.003 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:08:52.454 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:12:39.478 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:16:23.359 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:20:09.833 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:23:56.625 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:27:41.398 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:31:29.346 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:35:16.762 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:39:03.414 | INFO     | __main__:display:482 - Epoch: [39][10/37]	Time 227.416 (205.647)	Data 227.260 (205.495)	Loss 4.9516e-01 (5.0078e-01)	Acc@1  83.59 ( 83.56)	Acc@5  98.05 ( 98.37)
+2021-12-08 12:39:03.567 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:42:50.900 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:46:37.370 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:50:24.001 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:54:12.385 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 12:58:01.322 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:01:50.175 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:05:37.655 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:09:26.919 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:13:15.283 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:17:03.248 | INFO     | __main__:display:482 - Epoch: [39][20/37]	Time 228.364 (216.221)	Data 228.211 (216.069)	Loss 5.4727e-01 (5.0921e-01)	Acc@1  83.20 ( 83.46)	Acc@5  97.66 ( 98.25)
+2021-12-08 13:17:03.400 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:20:52.450 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:24:39.551 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:28:27.558 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:32:16.236 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:36:02.977 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:39:48.970 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:43:33.567 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:47:18.900 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:51:04.597 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:54:49.135 | INFO     | __main__:display:482 - Epoch: [39][30/37]	Time 225.697 (219.676)	Data 225.543 (219.524)	Loss 5.4497e-01 (5.0838e-01)	Acc@1  82.42 ( 83.64)	Acc@5  98.83 ( 98.26)
+2021-12-08 13:54:49.287 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 13:58:33.882 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:02:19.201 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:06:04.877 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:09:49.900 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:13:36.207 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:17:24.410 | INFO     | __main__:display:482 - Test: [ 0/16]	Time  1.694 ( 1.694)	Loss 3.4847e-01 (3.4847e-01)	Acc@1  89.45 ( 89.45)	Acc@5  98.05 ( 98.05)
+2021-12-08 14:17:27.663 | INFO     | __main__:display:482 - Test: [10/16]	Time  0.170 ( 0.450)	Loss 5.1931e-01 (4.3028e-01)	Acc@1  82.03 ( 86.15)	Acc@5  99.22 ( 98.97)
+2021-12-08 14:17:29.052 | INFO     | __main__:display_summary:487 -  *   Acc@1 85.121 Acc@5 98.701
+2021-12-08 14:17:29.233 | INFO     | __main__:save_checkpoint:424 - Model @ epoch 40 is the best with acc1: 85.12101745605469
+2021-12-08 14:17:31.265 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:21:13.579 | INFO     | __main__:display:482 - Epoch: [40][ 0/37]	Time  1.499 ( 1.499)	Data  1.359 ( 1.359)	Loss 4.5124e-01 (4.5124e-01)	Acc@1  84.77 ( 84.77)	Acc@5  98.44 ( 98.44)
+2021-12-08 14:21:13.733 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:24:58.733 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:28:43.988 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:32:29.414 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:36:14.809 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:40:00.439 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:43:44.750 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:47:30.182 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:51:15.151 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:55:00.192 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 14:58:45.799 | INFO     | __main__:display:482 - Epoch: [40][10/37]	Time 225.040 (204.584)	Data 224.888 (204.432)	Loss 5.2821e-01 (4.9841e-01)	Acc@1  83.59 ( 83.45)	Acc@5  98.05 ( 98.58)
+2021-12-08 14:58:45.956 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:02:30.956 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:06:17.054 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:10:02.310 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:13:47.237 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:17:32.205 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:21:17.037 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:25:03.740 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:28:47.752 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:32:33.185 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:36:19.183 | INFO     | __main__:display:482 - Epoch: [40][20/37]	Time 225.433 (214.449)	Data 225.282 (214.296)	Loss 4.8486e-01 (4.9076e-01)	Acc@1  85.94 ( 84.10)	Acc@5  98.05 ( 98.60)
+2021-12-08 15:36:19.337 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:40:05.274 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:43:51.962 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:47:38.582 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:51:25.596 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:55:14.209 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 15:59:00.093 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:02:44.644 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:06:32.440 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:10:18.455 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:14:04.206 | INFO     | __main__:display:482 - Epoch: [40][30/37]	Time 226.015 (218.345)	Data 225.862 (218.192)	Loss 5.3366e-01 (4.9625e-01)	Acc@1  82.81 ( 84.16)	Acc@5  99.61 ( 98.51)
+2021-12-08 16:14:04.359 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:17:50.046 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:21:37.176 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:25:23.263 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:29:10.465 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:32:57.466 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:36:46.678 | INFO     | __main__:display:482 - Test: [ 0/16]	Time  1.701 ( 1.701)	Loss 2.4474e-01 (2.4474e-01)	Acc@1  91.41 ( 91.41)	Acc@5  97.66 ( 97.66)
+2021-12-08 16:36:49.974 | INFO     | __main__:display:482 - Test: [10/16]	Time  0.210 ( 0.454)	Loss 4.3189e-01 (4.2895e-01)	Acc@1  85.55 ( 85.80)	Acc@5  99.22 ( 98.90)
+2021-12-08 16:36:51.397 | INFO     | __main__:display_summary:487 -  *   Acc@1 84.892 Acc@5 98.701
+2021-12-08 16:36:53.317 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:40:41.351 | INFO     | __main__:display:482 - Epoch: [41][ 0/37]	Time  1.731 ( 1.731)	Data  1.593 ( 1.593)	Loss 4.2377e-01 (4.2377e-01)	Acc@1  84.77 ( 84.77)	Acc@5  99.61 ( 99.61)
+2021-12-08 16:40:41.504 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:44:28.085 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:48:16.811 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:52:14.984 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:56:02.433 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 16:59:50.489 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 17:03:38.201 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
+2021-12-08 17:07:25.878 | WARNING  | __main__:train:369 - Changing model's weights during training according to 'zero_mantissa_to_closest_exponent' with group size: 2
